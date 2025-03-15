@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 const products = {
   men: [
-    { id: 1, name: "Casual Shirt", price: "Rs.2500", image: "/images/men-shirt.jpg" },
-    { id: 2, name: "Slim Fit Jeans", price: "Rs.3200", image: "/images/men-jeans.jpg" },
-    { id: 3, name: "Sports Sneakers", price: "Rs.4500", image: "/images/men-sneakers.jpg" },
+    { id: 1, name: "Casual T-shirt", price: "Rs.2500", image: "/images/t-shirt.jpg" },
+    { id: 2, name: "Jeans", price: "Rs.3200", image: "/images/pants.jpg" },
+    { id: 3, name: "Nike Sneakers", price: "Rs.4500", image: "/images/menshoe3.jpg" },
   ],
   women: [
     { id: 4, name: "V Neck Swiss Dot Blouse", price: "Rs.3200", image: "/images/bs1.jpg" },
@@ -12,9 +12,9 @@ const products = {
     { id: 6, name: "Nike Air Jordan", price: "Rs.8000", image: "/images/jordan.jpg" },
   ],
   kids: [
-    { id: 7, name: "Cartoon Printed T-Shirt", price: "Rs.1500", image: "/images/kids-shirt.jpg" },
-    { id: 8, name: "Denim Shorts", price: "Rs.1800", image: "/images/kids-shorts.jpg" },
-    { id: 9, name: "Kids Sneakers", price: "Rs.3000", image: "/images/kids-sneakers.jpg" },
+    { id: 7, name: "Cartoon Printed T-Shirt", price: "Rs.1500", image: "/images/cartoon.jpg" },
+    { id: 8, name: "Denim Shorts", price: "Rs.1800", image: "/images/shorts.jpg" },
+    { id: 9, name: "Kids Sneakers", price: "Rs.3000", image: "/images/kshoe.jpg" },
   ],
 };
 
