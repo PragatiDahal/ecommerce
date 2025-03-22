@@ -8,6 +8,8 @@ import Women from "./Components/Shop/Women";
 import Kids from "./Components/Shop/Kids";
 import About from "./Components/Pages/About";
 import Contact from "./Components/Pages/Contact";
+import LoginPage from "./Components/Pages/LoginPage";
+import RegisterPage from "./Components/Pages/RegisterPage";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/" element={<HomeCarousel />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/shop/men" element={<Men />} />
           <Route path="/shop/women" element={<Women />} />
           <Route path="/shop/kids" element={<Kids />} />

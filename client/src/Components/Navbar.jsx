@@ -73,7 +73,9 @@ const Navbar = () => {
         {/* Icons */}
         <div className="hidden md:flex space-x-4">
           <ShoppingCart className="cursor-pointer hover:text-gray-400" />
+          <Link to="/login">
           <User className="cursor-pointer hover:text-gray-400" />
+          </Link>
         </div>
       </div>
 
