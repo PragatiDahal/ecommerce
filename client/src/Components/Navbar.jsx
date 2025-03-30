@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Menu, X, ShoppingCart, User, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Navbar = () => {
+const Navbar = ({ cart }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -68,13 +68,23 @@ const Navbar = () => {
         </ul>
 
         {/* Logo */}
-        <div className="text-xl font-bold font-['Poppins'] absolute left-1/2 transform -translate-x-1/2">&STITCH</div>
+        <div className="text-xl font-bold font-['Poppins'] absolute left-1/2 transform -translate-x-1/2">
+          &STITCH
+        </div>
 
         {/* Icons */}
         <div className="hidden md:flex space-x-4">
-          <ShoppingCart className="cursor-pointer hover:text-gray-400" />
+          {/* Shopping Cart */}
+          <div className="relative cursor-pointer hover:text-gray-400">
+            <ShoppingCart size={24} />
+            {cart.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                {cart.length}
+              </span>
+            )}
+          </div>
           <Link to="/login">
-          <User className="cursor-pointer hover:text-gray-400" />
+            <User className="cursor-pointer hover:text-gray-400" />
           </Link>
         </div>
       </div>
@@ -135,7 +145,15 @@ const Navbar = () => {
               </li>
             </ul>
             <div className="flex justify-center space-x-6 mt-4">
-              <ShoppingCart className="hover:text-gray-400" />
+              {/* Shopping Cart */}
+              <div className="relative cursor-pointer hover:text-gray-400">
+                <ShoppingCart size={24} />
+                {cart.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                    {cart.length}
+                  </span>
+                )}
+              </div>
               <User className="hover:text-gray-400" />
             </div>
           </motion.div>

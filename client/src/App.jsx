@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import HomeCarousel from "./Components/Pages/Home";
@@ -10,25 +10,31 @@ import About from "./Components/Pages/About";
 import Contact from "./Components/Pages/Contact";
 import LoginPage from "./Components/Pages/LoginPage";
 import RegisterPage from "./Components/Pages/RegisterPage";
+import BestSellers from "./Components/BestSellers"; // Import BestSellers
+import Trending from "./Components/Trending"; // Import Trending
 
 function App() {
+  const [cart, setCart] = useState([]); // Manage cart items
+
   return (
-    <>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<HomeCarousel />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/shop/men" element={<Men />} />
-          <Route path="/shop/women" element={<Women />} />
-          <Route path="/shop/kids" element={<Kids />} />
-        </Routes>
-        <Footer />
-      </Router>
-    </>
+    <Router>
+      <Navbar cart={cart} /> {/* Pass cart to Navbar */}
+      <Routes>
+        <Route path="/" element={<>
+          <HomeCarousel />
+          <BestSellers cart={cart} setCart={setCart} /> {/* Pass cart state */}
+          <Trending cart={cart} setCart={setCart} /> {/* Pass cart state */}
+        </>} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/shop/men" element={<Men />} />
+        <Route path="/shop/women" element={<Women />} />
+        <Route path="/shop/kids" element={<Kids />} />
+      </Routes>
+      <Footer />
+    </Router>
   );
 }
 

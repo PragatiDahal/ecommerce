@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const trendingProducts = [
@@ -34,10 +34,21 @@ const trendingProducts = [
   },
 ];
 
-const Trending = () => {
+const Trending = ({ cart, setCart }) => {
   const [index, setIndex] = useState(0);
-  const itemsPerPage =
-    window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3; // Responsive items per slide
+  const [itemsPerPage, setItemsPerPage] = useState(3); // Default for large screens
+
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      if (window.innerWidth < 768) setItemsPerPage(1);
+      else if (window.innerWidth < 1024) setItemsPerPage(2);
+      else setItemsPerPage(3);
+    };
+
+    updateItemsPerPage();
+    window.addEventListener("resize", updateItemsPerPage);
+    return () => window.removeEventListener("resize", updateItemsPerPage);
+  }, []);
 
   const nextSlide = () => {
     setIndex((prevIndex) =>
@@ -49,6 +60,10 @@ const Trending = () => {
     setIndex((prevIndex) =>
       prevIndex === 0 ? trendingProducts.length - itemsPerPage : prevIndex - 1
     );
+  };
+
+  const addToCart = (product) => {
+    setCart((prevCart) => [...prevCart, product]); 
   };
 
   return (
@@ -85,8 +100,10 @@ const Trending = () => {
             />
             <h3 className="text-lg font-semibold mt-2">{product.name}</h3>
             <p className="text-gray-600">{product.price}</p>
-
-            <button className="bg-yellow-500 text-black px-4 py-2 mt-2 rounded-md w-[200px]">
+            <button
+              onClick={() => addToCart(product)}
+              className="bg-yellow-500 text-black px-4 py-2 mt-2 rounded-md w-[200px]"
+            >
               Add to Cart
             </button>
           </div>
