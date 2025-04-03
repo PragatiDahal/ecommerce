@@ -1,12 +1,20 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AdminDashboard from "./Component/AdminDashboard";
+import AddClothingForm from "./Component/AddClothingForm";
+
 
 function App() {
   
   return (
     <>
-      <h1 className="text-3xl font-bold underline bg-red-500">
-    Hello world!
-  </h1>
+   <Router>
+    <Routes>
+      <Route path="/" element={<AdminDashboard/>} />
+      <Route path="/addclothing" element={<AddClothingForm/>} />
+    
+    </Routes>
+   </Router>
     </>
   )
 }
