@@ -26,9 +26,13 @@ const AddMenClothingForm = () => {
     formDataToSend.append("image", formData.image);
 
     try {
-      await axios.post("http://localhost:8000/api/MenClothing", formDataToSend, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await axios.post(
+        "http://localhost:8000/api/menClothing",
+        formDataToSend,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
       setFormData({ name: "", price: "", image: null }); // Reset form fields
     } catch (error) {
       console.error("Error adding item:", error);
@@ -50,6 +54,13 @@ const AddMenClothingForm = () => {
             required
           />
           <input
+            type="file"
+            name="image"
+            onChange={handleChange}
+            className="p-2 border rounded w-full"
+            required
+          />
+          <input
             type="number"
             name="price"
             value={formData.price}
@@ -58,14 +69,10 @@ const AddMenClothingForm = () => {
             className="p-2 border rounded w-full"
             required
           />
-          <input
-            type="file"
-            name="image"
-            onChange={handleChange}
-            className="p-2 border rounded w-full"
-            required
-          />
-          <button type="submit" className="bg-yellow-500 text-white px-4 py-2 rounded w-full hover:bg-yellow-600">
+          <button
+            type="submit"
+            className="bg-yellow-500 text-white px-4 py-2 rounded w-full hover:bg-yellow-600"
+          >
             Submit
           </button>
         </form>
@@ -75,3 +82,4 @@ const AddMenClothingForm = () => {
 };
 
 export default AddMenClothingForm;
+

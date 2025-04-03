@@ -31,7 +31,7 @@ const LoginPage = () => {
         <div className="w-1/2 hidden md:block">
           <img
             src="/images/ab.jpg"
-            alt="Hostel"
+            alt="Login"
             className="rounded-lg object-cover w-full h-full"
           />
         </div>

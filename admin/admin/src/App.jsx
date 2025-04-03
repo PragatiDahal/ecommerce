@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdminDashboard from "./Component/AdminDashboard";
-import AddClothingForm from "./Component/AddClothingForm";
+import AddMenClothingForm from "./Component/AddMenClothingForm";
+import AdminSignIn from "./Component/AdminSignin";
 
 
 function App() {
@@ -10,8 +11,9 @@ function App() {
     <>
    <Router>
     <Routes>
-      <Route path="/" element={<AdminDashboard/>} />
-      <Route path="/addclothing" element={<AddClothingForm/>} />
+    <Route path="/" element={<AdminSignIn/>} />
+      <Route path="/dashboard" element={<AdminDashboard/>} />
+      <Route path="/addmenclothing" element={<AddMenClothingForm/>} />
     
     </Routes>
    </Router>

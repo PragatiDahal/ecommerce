@@ -38,18 +38,42 @@ const AdminDashboard = () => {
       <aside className="w-1/4 bg-gray-900 text-white p-6 min-h-screen">
         <h2 className="text-xl font-bold mb-6">Admin Dashboard</h2>
         <nav className="space-y-4">
-            <Link to ="/addclothing">
+            <Link to ="/addmenclothing">
           <button className="block text-left w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
-            Add clothing
+            Add Men clothing
           </button>
           </Link>
+          <Link to ="/addwomenclothing">
           <button className="block text-left w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
-            Add shoes
+            Add Women clothing
           </button>
+          </Link>
+          <Link to ="/addkidclothing">
+          <button className="block text-left w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
+            Add kids clothing
+          </button>
+          </Link>
+          <Link to ="/addmenshoes">
+          <button className="block text-left w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
+            Add Men shoes
+          </button>
+          </Link>
+          <Link to ="/addwomenshoes">
+          <button className="block text-left w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
+            Add Women shoes
+          </button>
+          </Link>
+          <Link to ="/addkidshoes">
+          <button className="block text-left w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
+            Add Kids shoes
+          </button>
+          </Link>
         </nav>
+        <Link to ="/">
         <button className="mt-8 bg-yellow-500 w-full py-2 rounded hover:bg-yellow-600">
           Log Out
         </button>
+        </Link>
       </aside>
 
       {/* Main Content */}

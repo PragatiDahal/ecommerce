@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import CategorySection from "../CategorySection";
-import BestSellers from "../BestSellers";
-import Trending from "../Trending";
-import SaleEvent from "../SaleEvent";
-import Newsletter from "../Newsletter";
+
 
 const carouselData = [
   {
@@ -98,11 +94,6 @@ export default function HomeCarousel() {
           ))}
         </div>
       </div>
-      <CategorySection />
-      <BestSellers />
-      <Trending />
-      <SaleEvent />
-      <Newsletter />
     </>
   );
 }
