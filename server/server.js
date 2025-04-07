@@ -17,9 +17,11 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // import Routes
 const menClothingRoutes = require("./routes/menclothingRoutes");
+const menshoesRoutes = require("./routes/menshoesRoutes");
 
 // Routes
 app.use("/api/menclothing", menClothingRoutes);
+app.use("/api/menshoes", menshoesRoutes);
 
 // Connect to MongoDB
 mongoose
