@@ -2,12 +2,12 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const {
-  getAllWomenClothing,
-  getWomenClothingById,
-  addWomenClothing,
-  updateWomenClothing,
-  deleteWomenClothing,
-} = require("../controller/womenclothingController");
+  getAllKidsClothing,
+  getKidsClothingById,
+  addKidsClothing,
+  updateKidsClothing,
+  deleteKidsClothing,
+} = require("../controller/kidsclothingController");
 
 const router = express.Router();
 
@@ -23,10 +23,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.get("/", getAllWomenClothing);
-router.get("/:id", getWomenClothingById);
-router.post("/", upload.single("image"), addWomenClothing);
-router.put("/:id", upload.single("image"), updateWomenClothing);
-router.delete("/:id", deleteWomenClothing);
+// Routes
+router.get("/", getAllKidsClothing);
+router.get("/:id", getKidsClothingById);
+router.post("/", upload.single("image"), addKidsClothing); // Apply Multer Middleware
+router.put("/:id", upload.single("image"), updateKidsClothing);
+router.delete("/:id", deleteKidsClothing);
 
 module.exports = router;

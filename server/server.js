@@ -18,10 +18,18 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // import Routes
 const menClothingRoutes = require("./routes/menclothingRoutes");
 const menshoesRoutes = require("./routes/menshoesRoutes");
+const womenclothingRoutes = require("./routes/womenclothingRoutes");
+const womenshoesRoutes = require("./routes/womenshoesRoutes");
+const kidsclothingRoutes = require("./routes/kidsclothingRoutes");
+const KidsshoesRoutes = require("./routes/kidsshoesRoutes");
 
 // Routes
 app.use("/api/menclothing", menClothingRoutes);
 app.use("/api/menshoes", menshoesRoutes);
+app.use("/api/womenclothing", womenclothingRoutes);
+app.use("/api/womenshoes", womenshoesRoutes);
+app.use("/api/kidsclothing", kidsclothingRoutes);
+app.use("/api/kidsshoes", KidsshoesRoutes);
 
 // Connect to MongoDB
 mongoose

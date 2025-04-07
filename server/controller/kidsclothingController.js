@@ -1,19 +1,19 @@
-const Womenclothing = require("../models/Womenclothing");
+const Kidsclothing = require("../models/Kidsclothing");
 
-// Get all WomenClothing items
-const getAllWomenClothing = async (req, res) => {
+// Get all KidsClothing items
+const getAllKidsClothing = async (req, res) => {
   try {
-    const items = await Womenclothing.find();
+    const items = await Kidsclothing.find();
     res.json(items);
   } catch (error) {
     res.status(500).json({ error: "Error fetching items", details: error.message });
   }
 };
 
-// Get a single WomenClothing item by ID
-const getWomenClothingById = async (req, res) => {
+// Get a single KidsClothing item by ID
+const getKidsClothingById = async (req, res) => {
   try {
-    const item = await Womenclothing.findById(req.params.id);
+    const item = await Kidsclothing.findById(req.params.id);
     if (!item) return res.status(404).json({ message: "Item not found" });
     res.json(item);
   } catch (error) {
@@ -21,13 +21,14 @@ const getWomenClothingById = async (req, res) => {
   }
 };
 
-// Add a new WomenClothing item
-const addWomenClothing = async (req, res) => {
+// Add a new KidsClothing item
+const addKidsClothing = async (req, res) => {
   try {
+    
     const { name, price } = req.body;
     const image = req.file ? `/uploads/${req.file.filename}` : null; // Save image path
 
-    const newItem = new Womenclothing({ name, price, image });
+    const newItem = new Kidsclothing({ name, price, image });
     await newItem.save();
 
     res.status(201).json({ message: "Item added successfully", newItem });
@@ -36,8 +37,8 @@ const addWomenClothing = async (req, res) => {
   }
 };
 
-// Update a WomenClothing item
-const updateWomenClothing = async (req, res) => {
+// Update a KidsClothing item
+const updateKidsClothing = async (req, res) => {
   try {
     const { name, price } = req.body;
     let image = req.body.image;
@@ -46,7 +47,7 @@ const updateWomenClothing = async (req, res) => {
       image = `/uploads/${req.file.filename}`;
     }
 
-    const updatedItem = await Womenclothing.findByIdAndUpdate(
+    const updatedItem = await Kidsclothing.findByIdAndUpdate(
       req.params.id,
       { name, price, image },
       { new: true }
@@ -60,10 +61,10 @@ const updateWomenClothing = async (req, res) => {
   }
 };
 
-// Delete a WomenClothing item
-const deleteWomenClothing = async (req, res) => {
+// Delete a KidsClothing item
+const deleteKidsClothing = async (req, res) => {
   try {
-    const deletedItem = await Womenclothing.findByIdAndDelete(req.params.id);
+    const deletedItem = await Kidsclothing.findByIdAndDelete(req.params.id);
     if (!deletedItem) return res.status(404).json({ message: "Item not found" });
 
     res.json({ message: "Item deleted successfully" });
@@ -73,9 +74,9 @@ const deleteWomenClothing = async (req, res) => {
 };
 
 module.exports = {
-  getAllWomenClothing,
-  getWomenClothingById,
-  addWomenClothing,
-  updateWomenClothing,
-  deleteWomenClothing,
+  getAllKidsClothing,
+  getKidsClothingById,
+  addKidsClothing,
+  updateKidsClothing,
+  deleteKidsClothing,
 };
