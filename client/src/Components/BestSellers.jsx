@@ -58,18 +58,13 @@ const products = {
   ],
 };
 
-const BestSellers = ({ cart, setCart }) => {
+const BestSellers = ({ addToCart }) => {
   const [category, setCategory] = useState("women");
-
-  const addToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]);
-  };
 
   return (
     <section className="container mx-auto my-8 bg-gray-200 p-6 rounded-lg">
       <h2 className="text-3xl font-bold text-center mb-6">Best Sellers</h2>
 
-      {/* Category Tabs */}
       <div className="flex justify-center space-x-6 mb-6">
         {Object.keys(products).map((cat) => (
           <button
@@ -86,7 +81,6 @@ const BestSellers = ({ cart, setCart }) => {
         ))}
       </div>
 
-      {/* Product Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {products[category].map((product) => (
           <div key={product.id} className="bg-white p-4 rounded-lg shadow-md">

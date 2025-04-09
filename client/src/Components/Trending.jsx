@@ -34,9 +34,9 @@ const trendingProducts = [
   },
 ];
 
-const Trending = ({ cart, setCart }) => {
+const Trending = ({ addToCart }) => {
   const [index, setIndex] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(3); // Default for large screens
+  const [itemsPerPage, setItemsPerPage] = useState(3);
 
   useEffect(() => {
     const updateItemsPerPage = () => {
@@ -62,15 +62,10 @@ const Trending = ({ cart, setCart }) => {
     );
   };
 
-  const addToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]); 
-  };
-
   return (
     <section className="container mx-auto my-8 bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-3xl font-bold text-center mb-6">TRENDINGS</h2>
 
-      {/* Carousel Navigation */}
       <div className="flex justify-between items-center mb-4">
         <button
           onClick={prevSlide}
@@ -86,7 +81,6 @@ const Trending = ({ cart, setCart }) => {
         </button>
       </div>
 
-      {/* Product Cards in Carousel */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {trendingProducts.slice(index, index + itemsPerPage).map((product) => (
           <div

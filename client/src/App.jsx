@@ -10,14 +10,19 @@ import About from "./Components/Pages/About";
 import Contact from "./Components/Pages/Contact";
 import LoginPage from "./Components/Pages/LoginPage";
 import RegisterPage from "./Components/Pages/RegisterPage";
-import BestSellers from "./Components/BestSellers"; // Import BestSellers
-import Trending from "./Components/Trending"; // Import Trending
+import BestSellers from "./Components/BestSellers";
+import Trending from "./Components/Trending";
 import CategorySection from "./Components/CategorySection";
 import SaleEvent from "./Components/SaleEvent";
 import Newsletter from "./Components/Newsletter";
+import CheckoutPage from "./Components/Pages/CheckoutPage";
 
 function App() {
   const [cart, setCart] = useState([]); // Manage cart items
+
+  const addToCart = (item) => {
+    setCart((prevCart) => [...prevCart, item]);
+  };
 
   return (
     <Router>
@@ -29,9 +34,8 @@ function App() {
             <>
               <HomeCarousel />
               <CategorySection />
-              <BestSellers cart={cart} setCart={setCart} />{" "}
-              {/* Pass cart state */}
-              <Trending cart={cart} setCart={setCart} /> {/* Pass cart state */}
+              <BestSellers addToCart={addToCart} />
+              <Trending addToCart={addToCart} />
               <SaleEvent />
               <Newsletter />
             </>
@@ -39,11 +43,15 @@ function App() {
         />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/checkout"
+          element={<CheckoutPage cart={cart} setCart={setCart} />}
+        />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/shop/men" element={<Men />} />
-        <Route path="/shop/women" element={<Women />} />
-        <Route path="/shop/kids" element={<Kids />} />
+        <Route path="/shop/men" element={<Men addToCart={addToCart} />} />
+        <Route path="/shop/women" element={<Women addToCart={addToCart} />} />
+        <Route path="/shop/kids" element={<Kids addToCart={addToCart} />} />
       </Routes>
       <Footer />
     </Router>

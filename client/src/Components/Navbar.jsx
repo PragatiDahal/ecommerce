@@ -75,14 +75,17 @@ const Navbar = ({ cart }) => {
         {/* Icons */}
         <div className="hidden md:flex space-x-4">
           {/* Shopping Cart */}
-          <div className="relative cursor-pointer hover:text-gray-400">
-            <ShoppingCart size={24} />
-            {cart.length > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
-                {cart.length}
-              </span>
-            )}
-          </div>
+          <Link to="/checkout">
+            <div className="relative cursor-pointer hover:text-gray-400">
+              <ShoppingCart size={24} />
+
+              {cart.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                  {cart.length}
+                </span>
+              )}
+            </div>
+          </Link>
           <Link to="/login">
             <User className="cursor-pointer hover:text-gray-400" />
           </Link>

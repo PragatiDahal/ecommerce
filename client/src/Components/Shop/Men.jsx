@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Men = () => {
+const Men = ({ addToCart }) => {
   const [clothingProducts, setClothingProducts] = useState([]);
   const [shoeProducts, setShoeProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -59,7 +59,10 @@ const Men = () => {
                 <p className="text-gray-700 text-lg font-medium">
                   Rs. {product.price}
                 </p>
-                <button className="mt-3 bg-yellow-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-yellow-600 transition-colors">
+                <button
+                  onClick={() => addToCart(product)}
+                  className="mt-3 bg-yellow-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-yellow-600 transition-colors"
+                >
                   Add to Cart
                 </button>
               </div>
@@ -91,7 +94,10 @@ const Men = () => {
                 <p className="text-gray-700 text-lg font-medium">
                   {product.price}
                 </p>
-                <button className="mt-3 bg-yellow-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-yellow-600 transition-colors">
+                <button
+                  onClick={() => addToCart(product)}
+                  className="mt-3 bg-yellow-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-yellow-600 transition-colors"
+                >
                   Add to Cart
                 </button>
               </div>
