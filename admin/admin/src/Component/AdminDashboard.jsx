@@ -1,36 +1,153 @@
-import { useState } from "react";
-import {Link} from "react-router-dom";
+// AdminDashboard.jsx
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
-  const [clothingItems, setClothingItems] = useState([
-    {
-      id: 1,
-      name: "V Neck Swiss Dot Blouse",
-      price: 1200,
-      image: "/images/bs1.jpg",
-    },
-    {
-      id: 2,
-      name: "Brown Blazer",
-      price: 1200,
-      image: "/images/blazer.jpg",
-    },
-  ]);
+  const [womenClothing, setWomenClothing] = useState([]);
+  const [womenShoes, setWomenShoes] = useState([]);
+  const [menClothing, setMenClothing] = useState([]);
+  const [menShoes, setMenShoes] = useState([]);
+  const [kidsClothing, setKidsClothing] = useState([]);
+  const [kidsShoes, setKidsShoes] = useState([]);
+  const navigate = useNavigate();
 
-  const [shoes, setShoes] = useState([
-    {
-      id: 3,
-      name: "Red Heels",
-      price: 1200,
-      image: "/images/wshoe1.jpg",
-    },
-    {
-      id: 4,
-      name: "Black Boots",
-      price: 1200,
-      image: "/images/wshoe.jpg",
-    },
-  ]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [
+          womenClothingRes,
+          womenShoesRes,
+          menClothingRes,
+          menShoesRes,
+          kidsClothingRes,
+          kidsShoesRes,
+        ] = await Promise.all([
+          axios.get("http://localhost:8000/api/Womenclothing"),
+          axios.get("http://localhost:8000/api/Womenshoes"),
+          axios.get("http://localhost:8000/api/Menclothing"),
+          axios.get("http://localhost:8000/api/Menshoes"),
+          axios.get("http://localhost:8000/api/Kidsclothing"),
+          axios.get("http://localhost:8000/api/Kidsshoes"),
+        ]);
+
+        setWomenClothing(womenClothingRes.data);
+        setWomenShoes(womenShoesRes.data);
+        setMenClothing(menClothingRes.data);
+        setMenShoes(menShoesRes.data);
+        setKidsClothing(kidsClothingRes.data);
+        setKidsShoes(kidsShoesRes.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleUpdate = (id, category) => {
+    navigate(`/update/${category}/${id}`);
+  };
+
+  const handleDelete = async (id, category) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (!confirmDelete) return;
+
+    const endpoints = {
+      womenClothing: "Womenclothing",
+      womenShoes: "Womenshoes",
+      menClothing: "Menclothing",
+      menShoes: "Menshoes",
+      kidsClothing: "Kidsclothing",
+      kidsShoes: "Kidsshoes",
+    };
+
+    try {
+      await axios.delete(
+        `http://localhost:8000/api/${endpoints[category]}/${id}`
+      );
+
+      const updateState = (setFunc, list) =>
+        setFunc(list.filter((item) => item._id !== id));
+
+      switch (category) {
+        case "womenClothing":
+          updateState(setWomenClothing, womenClothing);
+          break;
+        case "womenShoes":
+          updateState(setWomenShoes, womenShoes);
+          break;
+        case "menClothing":
+          updateState(setMenClothing, menClothing);
+          break;
+        case "menShoes":
+          updateState(setMenShoes, menShoes);
+          break;
+        case "kidsClothing":
+          updateState(setKidsClothing, kidsClothing);
+          break;
+        case "kidsShoes":
+          updateState(setKidsShoes, kidsShoes);
+          break;
+        default:
+          break;
+      }
+
+      alert("Item deleted successfully!");
+    } catch (error) {
+      console.error("Delete failed:", error);
+      alert("Failed to delete the item. Please try again.");
+    }
+  };
+
+  const renderTable = (data, title, category) => (
+    <section className="mb-10">
+      <h2 className="text-xl font-bold mb-4">{title}</h2>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white rounded shadow">
+          <thead>
+            <tr>
+              <th className="py-3 px-4 border-b">Image</th>
+              <th className="py-3 px-4 border-b">Name</th>
+              <th className="py-3 px-4 border-b">Price</th>
+              <th className="py-3 px-4 border-b">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item) => (
+              <tr key={item._id}>
+                <td className="py-2 px-4 border-b">
+                  <img
+                    src={`http://localhost:8000${item.image}`}
+                    alt={item.name}
+                    className="h-24 w-24 object-cover rounded"
+                  />
+                </td>
+                <td className="py-2 px-4 border-b">{item.name}</td>
+                <td className="py-2 px-4 border-b">Rs. {item.price}</td>
+                <td className="py-2 px-4 border-b space-x-2">
+                  <button
+                    onClick={() => handleUpdate(item._id, category)}
+                    className="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600"
+                  >
+                    Update
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item._id, category)}
+                    className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
 
   return (
     <div className="flex min-h-screen bg-gray-200">
@@ -38,97 +155,52 @@ const AdminDashboard = () => {
       <aside className="w-1/4 bg-gray-900 text-white p-6 min-h-screen">
         <h2 className="text-xl font-bold mb-6">Admin Dashboard</h2>
         <nav className="space-y-4">
-            <Link to ="/addmenclothing">
-          <button className="block text-left w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
-            Add Men clothing
-          </button>
+          <Link to="/addmenclothing">
+            <button className="block w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
+              Add Men Clothing
+            </button>
           </Link>
-          <Link to ="/addwomenclothing">
-          <button className="block text-left w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
-            Add Women clothing
-          </button>
+          <Link to="/addwomenclothing">
+            <button className="block w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
+              Add Women Clothing
+            </button>
           </Link>
-          <Link to ="/addkidclothing">
-          <button className="block text-left w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
-            Add kids clothing
-          </button>
+          <Link to="/addkidclothing">
+            <button className="block w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
+              Add Kids Clothing
+            </button>
           </Link>
-          <Link to ="/addmenshoes">
-          <button className="block text-left w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
-            Add Men shoes
-          </button>
+          <Link to="/addmenshoes">
+            <button className="block w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
+              Add Men Shoes
+            </button>
           </Link>
-          <Link to ="/addwomenshoes">
-          <button className="block text-left w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
-            Add Women shoes
-          </button>
+          <Link to="/addwomenshoes">
+            <button className="block w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
+              Add Women Shoes
+            </button>
           </Link>
-          <Link to ="/addkidshoes">
-          <button className="block text-left w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
-            Add Kids shoes
-          </button>
+          <Link to="/addkidshoes">
+            <button className="block w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
+              Add Kids Shoes
+            </button>
           </Link>
         </nav>
-        <Link to ="/">
-        <button className="mt-8 bg-yellow-500 w-full py-2 rounded hover:bg-yellow-600">
-          Log Out
-        </button>
+        <Link to="/">
+          <button className="mt-8 bg-yellow-500 w-full py-2 rounded hover:bg-yellow-600">
+            Log Out
+          </button>
         </Link>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
-        {/* Women Clothing Section */}
-        <section className="mb-8">
-          <h2 className="text-xl font-bold mb-4">Women Clothing</h2>
-          <div className="grid grid-cols-2 gap-6">
-            {clothingItems.map((item) => (
-              <div key={item.id} className="bg-white p-4 rounded-lg shadow-md">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-[450px] object-cover mb-3 rounded"
-                />
-                <h3 className="text-lg font-semibold">{item.name}</h3>
-                <p className="text-gray-600">Rs. {item.price}</p>
-                <div className="flex justify-between mt-3">
-                  <button className="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">
-                    Update
-                  </button>
-                  <button className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Women Shoes Section */}
-        <section>
-          <h2 className="text-xl font-bold mb-4">Women Shoes</h2>
-          <div className="grid grid-cols-2 gap-6">
-            {shoes.map((item) => (
-              <div key={item.id} className="bg-white p-4 rounded-lg shadow-md">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-[450px] object-cover mb-3 rounded"
-                />
-                <h3 className="text-lg font-semibold">{item.name}</h3>
-                <p className="text-gray-600">Rs. {item.price}</p>
-                <div className="flex justify-between mt-3">
-                  <button className="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">
-                    Update
-                  </button>
-                  <button className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+      <main className="flex-1 p-8 overflow-y-auto">
+        {renderTable(womenClothing, "Women Clothing", "womenClothing")}
+        {renderTable(womenShoes, "Women Shoes", "womenShoes")}
+        {renderTable(menClothing, "Men Clothing", "menClothing")}
+        {renderTable(menShoes, "Men Shoes", "menShoes")}
+        {renderTable(kidsClothing, "Kids Clothing", "kidsClothing")}
+        {renderTable(kidsShoes, "Kids Shoes", "kidsShoes")}
       </main>
     </div>
   );

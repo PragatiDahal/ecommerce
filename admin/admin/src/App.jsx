@@ -8,27 +8,25 @@ import AddWomenClothingForm from "./Component/AddWomenClothingForm";
 import AddWomenShoesForm from "./Component/AddWomenShoesForm";
 import AddKidsClothingForm from "./Component/AddKidsClothingForm";
 import AddKidsShoesForm from "./Component/AddKidsShoesForm";
-
+import UpdateItemWrapper from "./Component/UpdateItemWrapper";
 
 function App() {
-  
   return (
-    <>
-   <Router>
-    <Routes>
-    <Route path="/" element={<AdminSignIn/>} />
-      <Route path="/dashboard" element={<AdminDashboard/>} />
-      <Route path="/addmenclothing" element={<AddMenClothingForm/>} />
-      <Route path="/addmenshoes" element={<AddMenShoesForm/>} />
-      <Route path="/addwomenclothing" element={<AddWomenClothingForm/>} />
-      <Route path="/addwomenshoes" element={<AddWomenShoesForm/>} />
-      <Route path="/addKidclothing" element={<AddKidsClothingForm/>} />
-      <Route path="/addKidshoes" element={<AddKidsShoesForm/>} />
-    
-    </Routes>
-   </Router>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<AdminSignIn />} />
+        <Route path="/dashboard" element={<AdminDashboard />} />
+        <Route path="/addmenclothing" element={<AddMenClothingForm />} />
+        <Route path="/addmenshoes" element={<AddMenShoesForm />} />
+        <Route path="/addwomenclothing" element={<AddWomenClothingForm />} />
+        <Route path="/addwomenshoes" element={<AddWomenShoesForm />} />
+        <Route path="/addKidclothing" element={<AddKidsClothingForm />} />
+        <Route path="/addKidshoes" element={<AddKidsShoesForm />} />
+        <Route path="/update/:category/:id" element={<UpdateItemWrapper />} />
+
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
