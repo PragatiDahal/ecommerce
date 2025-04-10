@@ -1,72 +1,42 @@
-import React, { useState } from "react";
-
-const products = {
-  men: [
-    {
-      id: 1,
-      name: "Casual T-shirt",
-      price: "Rs.2500",
-      image: "/images/t-shirt.jpg",
-    },
-    { id: 2, name: "Jeans", price: "Rs.3200", image: "/images/pants.jpg" },
-    {
-      id: 3,
-      name: "Nike Sneakers",
-      price: "Rs.4500",
-      image: "/images/menshoe3.jpg",
-    },
-  ],
-  women: [
-    {
-      id: 4,
-      name: "V Neck Swiss Dot Blouse",
-      price: "Rs.3200",
-      image: "/images/bs1.jpg",
-    },
-    {
-      id: 5,
-      name: "Wide Leg Jeans",
-      price: "Rs.3500",
-      image: "/images/jean.jpg",
-    },
-    {
-      id: 6,
-      name: "Nike Air Jordan",
-      price: "Rs.8000",
-      image: "/images/jordan.jpg",
-    },
-  ],
-  kids: [
-    {
-      id: 7,
-      name: "Cartoon Printed T-Shirt",
-      price: "Rs.1500",
-      image: "/images/cartoon.jpg",
-    },
-    {
-      id: 8,
-      name: "Denim Shorts",
-      price: "Rs.1800",
-      image: "/images/shorts.jpg",
-    },
-    {
-      id: 9,
-      name: "Kids Sneakers",
-      price: "Rs.3000",
-      image: "/images/kshoe.jpg",
-    },
-  ],
-};
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const BestSellers = ({ addToCart }) => {
   const [category, setCategory] = useState("women");
+  const [products, setProducts] = useState({
+    men: [],
+    women: [],
+    kids: [],
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [menRes, womenRes, kidsRes] = await Promise.all([
+          axios.get("http://localhost:8000/api/Menclothing"),
+          axios.get("http://localhost:8000/api/Womenclothing"),
+          axios.get("http://localhost:8000/api/Kidsclothing"),
+        ]);
+
+        setProducts({
+          men: menRes.data.slice(0, 3),
+          women: womenRes.data.slice(0, 3),
+          kids: kidsRes.data.slice(0, 3),
+        });
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <section className="container mx-auto my-8 bg-gray-200 p-6 rounded-lg">
       <h2 className="text-3xl font-bold text-center mb-6">Best Sellers</h2>
 
       <div className="flex justify-center space-x-6 mb-6">
-        {Object.keys(products).map((cat) => (
+        {["men", "women", "kids"].map((cat) => (
           <button
             key={cat}
             onClick={() => setCategory(cat)}
@@ -85,12 +55,12 @@ const BestSellers = ({ addToCart }) => {
         {products[category].map((product) => (
           <div key={product.id} className="bg-white p-4 rounded-lg shadow-md">
             <img
-              src={product.image}
+              src={`http://localhost:8000${product.image}`}
               alt={product.name}
               className="w-full h-[450px] object-cover rounded-md"
             />
             <h3 className="text-lg font-semibold mt-2">{product.name}</h3>
-            <p className="text-gray-600">{product.price}</p>
+            <p className="text-gray-600">Rs.{product.price}</p>
             <button
               onClick={() => addToCart(product)}
               className="bg-yellow-500 text-black px-4 py-2 mt-2 rounded-md w-[200px]"

@@ -1,42 +1,24 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const trendingProducts = [
-  {
-    id: 1,
-    name: "Long Sleeves Shirt",
-    price: "Rs.1800",
-    image: "/images/shirt.jpg",
-  },
-  {
-    id: 2,
-    name: "Frock with Bow",
-    price: "Rs.2500",
-    image: "/images/frock.jpg",
-  },
-  {
-    id: 3,
-    name: "Women's Flare Pant",
-    price: "Rs.3000",
-    image: "/images/flarepant.jpg",
-  },
-  {
-    id: 4,
-    name: "Casual Blazer",
-    price: "Rs.3500",
-    image: "/images/blazer.jpg",
-  },
-  {
-    id: 5,
-    name: "Stylish Hoodie",
-    price: "Rs.2800",
-    image: "/images/hoodie.jpg",
-  },
-];
-
 const Trending = ({ addToCart }) => {
+  const [products, setProducts] = useState([]);
   const [index, setIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(3);
+
+  useEffect(() => {
+    const fetchTrendingProducts = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/trending");
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching trending products:", error);
+      }
+    };
+
+    fetchTrendingProducts();
+  }, []);
 
   useEffect(() => {
     const updateItemsPerPage = () => {
@@ -52,13 +34,13 @@ const Trending = ({ addToCart }) => {
 
   const nextSlide = () => {
     setIndex((prevIndex) =>
-      prevIndex + itemsPerPage >= trendingProducts.length ? 0 : prevIndex + 1
+      prevIndex + itemsPerPage >= products.length ? 0 : prevIndex + 1
     );
   };
 
   const prevSlide = () => {
     setIndex((prevIndex) =>
-      prevIndex === 0 ? trendingProducts.length - itemsPerPage : prevIndex - 1
+      prevIndex === 0 ? products.length - itemsPerPage : prevIndex - 1
     );
   };
 
@@ -82,13 +64,13 @@ const Trending = ({ addToCart }) => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {trendingProducts.slice(index, index + itemsPerPage).map((product) => (
+        {products.slice(index, index + itemsPerPage).map((product) => (
           <div
-            key={product.id}
+            key={product._id}
             className="bg-gray-100 p-4 rounded-lg shadow-md"
           >
             <img
-              src={product.image}
+              src={`http://localhost:8000${product.image}`}
               alt={product.name}
               className="w-full h-[300px] sm:h-[400px] md:h-[450px] object-cover rounded-md"
             />

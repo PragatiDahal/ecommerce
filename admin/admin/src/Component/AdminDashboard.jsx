@@ -155,6 +155,14 @@ const AdminDashboard = () => {
       <aside className="w-1/4 bg-gray-900 text-white p-6 min-h-screen">
         <h2 className="text-xl font-bold mb-6">Admin Dashboard</h2>
         <nav className="space-y-4">
+          <button className="block w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
+            User Details
+          </button>
+          <Link to="/contact">
+          <button className="block w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
+            Contacts
+          </button>
+          </Link>
           <Link to="/addmenclothing">
             <button className="block w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
               Add Men Clothing
@@ -183,6 +191,11 @@ const AdminDashboard = () => {
           <Link to="/addkidshoes">
             <button className="block w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
               Add Kids Shoes
+            </button>
+          </Link>
+          <Link to="/trending">
+            <button className="block w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
+              Add trendings
             </button>
           </Link>
         </nav>

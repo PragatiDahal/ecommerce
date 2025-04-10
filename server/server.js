@@ -22,6 +22,8 @@ const womenclothingRoutes = require("./routes/womenclothingRoutes");
 const womenshoesRoutes = require("./routes/womenshoesRoutes");
 const kidsclothingRoutes = require("./routes/kidsclothingRoutes");
 const KidsshoesRoutes = require("./routes/kidsshoesRoutes");
+const trendingRoutes = require("./routes/trendingRoutes");
+const contactRoutes = require('./routes/contactRoutes');
 
 // Routes
 app.use("/api/menclothing", menClothingRoutes);
@@ -30,6 +32,9 @@ app.use("/api/womenclothing", womenclothingRoutes);
 app.use("/api/womenshoes", womenshoesRoutes);
 app.use("/api/kidsclothing", kidsclothingRoutes);
 app.use("/api/kidsshoes", KidsshoesRoutes);
+app.use("/api/trending", trendingRoutes);
+app.use('/api', contactRoutes);
+
 
 // Connect to MongoDB
 mongoose

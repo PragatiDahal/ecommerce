@@ -1,14 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdminDashboard from "./Component/AdminDashboard";
-import AddMenClothingForm from "./Component/AddMenClothingForm";
+import AddMenClothingForm from "./Component/Pages/AddMenClothingForm";
 import AdminSignIn from "./Component/AdminSignin";
-import AddMenShoesForm from "./Component/AddMenShoesForm";
-import AddWomenClothingForm from "./Component/AddWomenClothingForm";
-import AddWomenShoesForm from "./Component/AddWomenShoesForm";
-import AddKidsClothingForm from "./Component/AddKidsClothingForm";
-import AddKidsShoesForm from "./Component/AddKidsShoesForm";
-import UpdateItemWrapper from "./Component/UpdateItemWrapper";
+import AddMenShoesForm from "./Component/Pages/AddMenShoesForm";
+import AddWomenClothingForm from "./Component/Pages/AddWomenClothingForm";
+import AddWomenShoesForm from "./Component/Pages/AddWomenShoesForm";
+import AddKidsClothingForm from "./Component/Pages/AddKidsClothingForm";
+import AddKidsShoesForm from "./Component/Pages/AddKidsShoesForm";
+import UpdateItemWrapper from "./Component/Pages/UpdateItemWrapper";
+import Trending from "./Component/Pages/Trending";
+import ContactTable from "./Component/Pages/ContactTable";
+
 
 function App() {
   return (
@@ -23,6 +26,8 @@ function App() {
         <Route path="/addKidclothing" element={<AddKidsClothingForm />} />
         <Route path="/addKidshoes" element={<AddKidsShoesForm />} />
         <Route path="/update/:category/:id" element={<UpdateItemWrapper />} />
+        <Route path="/trending" element={<Trending/>} />
+        <Route path="/contact" element={<ContactTable/>} />
 
       </Routes>
     </Router>
