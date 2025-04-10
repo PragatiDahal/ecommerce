@@ -153,7 +153,7 @@ const CheckoutPage = ({ cart, setCart }) => {
               >
                 <div className="flex items-center gap-2">
                   <img
-                    src={`http://localhost:8000/${item.image}`}
+                    src={`http://localhost:8000${item.image}`}
                     alt={item.name}
                     className="h-16 w-16 object-cover rounded"
                   />

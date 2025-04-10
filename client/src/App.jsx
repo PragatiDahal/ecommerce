@@ -16,6 +16,7 @@ import CategorySection from "./Components/CategorySection";
 import SaleEvent from "./Components/SaleEvent";
 import Newsletter from "./Components/Newsletter";
 import CheckoutPage from "./Components/Pages/CheckoutPage";
+import PopupNewsletter from "./Components/PopupNewsletter";
 
 function App() {
   const [cart, setCart] = useState([]); // Manage cart items
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <Router>
+      <PopupNewsletter/>
       <Navbar cart={cart} /> {/* Pass cart to Navbar */}
       <Routes>
         <Route

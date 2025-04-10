@@ -8,7 +8,7 @@ const Navbar = ({ cart }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <nav className="bg-[#111827] text-white py-4 px-6 md:px-16 relative z-50">
+    <nav className="fixed top-0 left-0 w-full bg-[#111827] text-white py-4 px-6 md:px-16 shadow-md z-50">
       <div className="container mx-auto flex justify-between items-center">
         {/* Mobile Menu Button */}
         <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
@@ -18,9 +18,7 @@ const Navbar = ({ cart }) => {
         {/* Navbar Links (Desktop) */}
         <ul className="hidden md:flex space-x-6 font-['Poppins']">
           <li>
-            <Link className="hover:text-gray-400" to="/">
-              Home
-            </Link>
+            <Link className="hover:text-gray-400" to="/">Home</Link>
           </li>
 
           {/* Shop Dropdown */}
@@ -56,14 +54,10 @@ const Navbar = ({ cart }) => {
           </li>
 
           <li>
-            <Link className="hover:text-gray-400" to="/about">
-              About
-            </Link>
+            <Link className="hover:text-gray-400" to="/about">About</Link>
           </li>
           <li>
-            <Link className="hover:text-gray-400" to="/contact">
-              Contact
-            </Link>
+            <Link className="hover:text-gray-400" to="/contact">Contact</Link>
           </li>
         </ul>
 
@@ -78,7 +72,6 @@ const Navbar = ({ cart }) => {
           <Link to="/checkout">
             <div className="relative cursor-pointer hover:text-gray-400">
               <ShoppingCart size={24} />
-
               {cart.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
                   {cart.length}
@@ -103,9 +96,7 @@ const Navbar = ({ cart }) => {
           >
             <ul className="space-y-3 text-center font-['Poppins']">
               <li>
-                <Link className="block hover:text-gray-400" to="/">
-                  Home
-                </Link>
+                <Link className="block hover:text-gray-400" to="/">Home</Link>
               </li>
               <li>
                 <button
@@ -137,27 +128,26 @@ const Navbar = ({ cart }) => {
                 </AnimatePresence>
               </li>
               <li>
-                <Link className="block hover:text-gray-400" to="/about">
-                  About
-                </Link>
+                <Link className="block hover:text-gray-400" to="/about">About</Link>
               </li>
               <li>
-                <Link className="block hover:text-gray-400" to="/contact">
-                  Contact
-                </Link>
+                <Link className="block hover:text-gray-400" to="/contact">Contact</Link>
               </li>
             </ul>
             <div className="flex justify-center space-x-6 mt-4">
-              {/* Shopping Cart */}
-              <div className="relative cursor-pointer hover:text-gray-400">
-                <ShoppingCart size={24} />
-                {cart.length > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
-                    {cart.length}
-                  </span>
-                )}
-              </div>
-              <User className="hover:text-gray-400" />
+              <Link to="/checkout">
+                <div className="relative cursor-pointer hover:text-gray-400">
+                  <ShoppingCart size={24} />
+                  {cart.length > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                      {cart.length}
+                    </span>
+                  )}
+                </div>
+              </Link>
+              <Link to="/login">
+                <User className="hover:text-gray-400" />
+              </Link>
             </div>
           </motion.div>
         )}
