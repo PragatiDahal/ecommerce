@@ -24,6 +24,9 @@ const kidsclothingRoutes = require("./routes/kidsclothingRoutes");
 const KidsshoesRoutes = require("./routes/kidsshoesRoutes");
 const trendingRoutes = require("./routes/trendingRoutes");
 const contactRoutes = require('./routes/contactRoutes');
+const signupRoute = require("./routes/signuppage");
+const loginRoute = require("./routes/loginpage");
+const userRoutes = require("./routes/userRoutes");
 
 // Routes
 app.use("/api/menclothing", menClothingRoutes);
@@ -34,6 +37,9 @@ app.use("/api/kidsclothing", kidsclothingRoutes);
 app.use("/api/kidsshoes", KidsshoesRoutes);
 app.use("/api/trending", trendingRoutes);
 app.use('/api', contactRoutes);
+app.use("/api/signup", signupRoute);
+app.use("/api/login", loginRoute);
+app.use("/api/users", userRoutes);
 
 
 // Connect to MongoDB

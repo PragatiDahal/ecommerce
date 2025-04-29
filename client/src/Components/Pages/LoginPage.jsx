@@ -3,15 +3,22 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Eye, EyeOff, Mail, User, Lock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 
+// Simplified validation schema
 const loginSchema = z.object({
-  username: z.string().min(3, "Username must be at least 3 characters"),
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  username: z.string().nonempty("Name is required"),
+  email: z.string().nonempty("Email is required"),
+  password: z.string().nonempty("Password is required"),
 });
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -20,8 +27,31 @@ const LoginPage = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data) => {
-    console.log("Login Data:", data);
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const response = await axios.post("http://localhost:8000/api/login", data);
+      console.log("Login Successful:", response.data);
+
+      await Swal.fire({
+        icon: "success",
+        title: "Login Successful!",
+        text: "Welcome back!",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+
+      navigate("/");
+    } catch (error) {
+      console.error("Login failed:", error.response?.data || error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: error.response?.data?.message || "Invalid credentials. Please try again!",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -46,7 +76,7 @@ const LoginPage = () => {
             {/* Username */}
             <div>
               <label className="text-sm font-medium text-white">
-                Username*
+                Name*
               </label>
               <div className="relative">
                 <User className="absolute left-3 top-3 text-gray-500" size={18} />
@@ -105,9 +135,35 @@ const LoginPage = () => {
             {/* Login Button */}
             <button
               type="submit"
-              className="w-full bg-[#EAB308] text-gray-700  py-2 rounded-md"
+              disabled={loading}
+              className={`w-full flex justify-center items-center py-2 rounded-md ${
+                loading ? "bg-gray-400" : "bg-[#EAB308] text-gray-700"
+              }`}
             >
-              Login
+              {loading ? (
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8H4z"
+                  ></path>
+                </svg>
+              ) : (
+                "Login"
+              )}
             </button>
           </form>
 
