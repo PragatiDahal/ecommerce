@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Trending = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [index, setIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(3);
+
+  useEffect(() => {
+    AOS.init({ duration: 800, once: true });
+  }, []);
 
   useEffect(() => {
     const fetchTrendingProducts = async () => {
@@ -45,10 +51,22 @@ const Trending = ({ addToCart }) => {
   };
 
   return (
-    <section className="container mx-auto my-8 bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-3xl font-bold text-center mb-6">TRENDINGS</h2>
+    <section
+      className="container mx-auto my-8 bg-white p-6 rounded-lg shadow-md"
+      data-aos="fade-up"
+    >
+      <h2
+        className="text-3xl font-bold text-center mb-6"
+        data-aos="fade-down"
+      >
+        TRENDINGS
+      </h2>
 
-      <div className="flex justify-between items-center mb-4">
+      <div
+        className="flex justify-between items-center mb-4"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
         <button
           onClick={prevSlide}
           className="p-2 bg-black text-white rounded-full mx-2"
@@ -64,10 +82,12 @@ const Trending = ({ addToCart }) => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.slice(index, index + itemsPerPage).map((product) => (
+        {products.slice(index, index + itemsPerPage).map((product, i) => (
           <div
             key={product._id}
             className="bg-gray-100 p-4 rounded-lg shadow-md"
+            data-aos="zoom-in"
+            data-aos-delay={i * 100}
           >
             <img
               src={`http://localhost:8000${product.image}`}

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const BestSellers = ({ addToCart }) => {
   const [category, setCategory] = useState("women");
@@ -10,6 +12,9 @@ const BestSellers = ({ addToCart }) => {
   });
 
   useEffect(() => {
+    // Initialize AOS
+    AOS.init({ duration: 800, once: true });
+
     const fetchData = async () => {
       try {
         const [menRes, womenRes, kidsRes] = await Promise.all([
@@ -32,10 +37,23 @@ const BestSellers = ({ addToCart }) => {
   }, []);
 
   return (
-    <section className="container mx-auto my-8 bg-gray-200 p-6 rounded-lg">
-      <h2 className="text-3xl font-bold text-center mb-6">Best Sellers</h2>
+    <section
+      className="container mx-auto my-8 bg-gray-200 p-6 rounded-lg"
+      data-aos="fade-up"
+    >
+      <h2
+        className="text-3xl font-bold text-center mb-6"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Best Sellers
+      </h2>
 
-      <div className="flex justify-center space-x-6 mb-6">
+      <div
+        className="flex justify-center space-x-6 mb-6"
+        data-aos="zoom-in"
+        data-aos-delay="200"
+      >
         {["men", "women", "kids"].map((cat) => (
           <button
             key={cat}
@@ -52,8 +70,13 @@ const BestSellers = ({ addToCart }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products[category].map((product) => (
-          <div key={product.id} className="bg-white p-4 rounded-lg shadow-md">
+        {products[category].map((product, index) => (
+          <div
+            key={product.id}
+            className="bg-white p-4 rounded-lg shadow-md"
+            data-aos="fade-up"
+            data-aos-delay={index * 150}
+          >
             <img
               src={`http://localhost:8000${product.image}`}
               alt={product.name}
