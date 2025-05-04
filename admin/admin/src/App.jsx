@@ -11,6 +11,7 @@ import AddKidsShoesForm from "./Component/Pages/AddKidsShoesForm";
 import UpdateItemWrapper from "./Component/Pages/UpdateItemWrapper";
 import Trending from "./Component/Pages/Trending";
 import ContactTable from "./Component/Pages/ContactTable";
+import UserTable from "./Component/Pages/UserTable";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/update/:category/:id" element={<UpdateItemWrapper />} />
         <Route path="/trending" element={<Trending/>} />
         <Route path="/contact" element={<ContactTable/>} />
+        <Route path="/user" element={<UserTable/>} />
 
       </Routes>
     </Router>

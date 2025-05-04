@@ -155,9 +155,11 @@ const AdminDashboard = () => {
       <aside className="w-1/4 bg-gray-900 text-white p-6 min-h-screen">
         <h2 className="text-xl font-bold mb-6">Admin Dashboard</h2>
         <nav className="space-y-4">
+        <Link to="/user">
           <button className="block w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
             User Details
           </button>
+          </Link>
           <Link to="/contact">
           <button className="block w-full py-2 px-4 bg-gray-800 rounded hover:bg-gray-700">
             Contacts

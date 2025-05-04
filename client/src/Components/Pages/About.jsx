@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const testimonials = [
   {
@@ -26,10 +27,6 @@ export default function About() {
 
   const nextSlide = () =>
     setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-  const prevSlide = () =>
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
-    );
 
   useEffect(() => {
     const interval = setInterval(() => nextSlide(), 5000);
@@ -47,27 +44,34 @@ export default function About() {
           backgroundPosition: "center",
         }}
       >
-        {/* Blur Overlay */}
-        <div className="absolute inset-0 backdrop-blur-lg"></div>
-
-        {/* Hero Text */}
-        <div className="bg-[#D1D5DB]/20 w-full h-[60vh] flex items-center justify-center">
+        <div className="absolute inset-0 backdrop-blur-lg" />
+        <motion.div
+          className="bg-[#D1D5DB]/20 w-full h-[60vh] flex items-center justify-center"
+          initial={{ opacity: 0, y: -40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
           <h1 className="text-2xl md:text-3xl font-semibold z-10 max-w-2xl text-[#111827] text-center">
             Our passion is to bring you fashion that <br />
             speaks to your individuality—crafted with <br />
             care, designed for impact.
           </h1>
-        </div>
+        </motion.div>
       </section>
 
       {/* About Section */}
       <section className="max-w-6xl mx-auto py-16 px-6 flex flex-col md:flex-row items-center gap-10">
-        {/* House-Shaped Image */}
-        <div className="md:w-1/2 relative flex justify-center">
+        <motion.div
+          className="md:w-1/2 relative flex justify-center"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
           <div
             className="relative w-[350px] h-[400px] overflow-hidden shadow-lg"
             style={{
-              clipPath: "polygon(50% 0%, 100% 25%, 100% 100%, 0% 100%, 0% 25%)",
+              clipPath:
+                "polygon(50% 0%, 100% 25%, 100% 100%, 0% 100%, 0% 25%)",
             }}
           >
             <img
@@ -76,10 +80,14 @@ export default function About() {
               className="w-full h-full object-cover"
             />
           </div>
-        </div>
+        </motion.div>
 
-        {/* Text Section */}
-        <div className="md:w-1/2 text-left">
+        <motion.div
+          className="md:w-1/2 text-left"
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
           <h2 className="text-xl font-bold mb-2">OUR SHOP</h2>
           <h3 className="text-lg font-semibold text-gray-900 mb-3">
             Focusing on Quality Material, Good Design
@@ -91,7 +99,7 @@ export default function About() {
             classics to trendsetting pieces, we stitch together quality,
             creativity, and confidence in every collection.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* Features Section */}
@@ -99,28 +107,27 @@ export default function About() {
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-3xl font-semibold mb-8">Our Quality Promise</h2>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="p-6 bg-white rounded-lg shadow">
-              <h3 className="text-xl font-semibold">
-                Exceptional Craftsmanship
-              </h3>
-              <p className="text-gray-600 mt-2">
-                Designed with precision & crafted with care, made for timeless
-                wear.
-              </p>
-            </div>
-            <div className="p-6 bg-white rounded-lg shadow">
-              <h3 className="text-xl font-semibold">Sustainable Fashion</h3>
-              <p className="text-gray-600 mt-2">
-                Ethically sourced materials that minimize environmental impact.
-              </p>
-            </div>
-            <div className="p-6 bg-white rounded-lg shadow">
-              <h3 className="text-xl font-semibold">Timeless Design</h3>
-              <p className="text-gray-600 mt-2">
-                Classic designs that never go out of style, blending tradition
-                with modernity.
-              </p>
-            </div>
+            {["Exceptional Craftsmanship", "Sustainable Fashion", "Timeless Design"].map(
+              (title, i) => (
+                <motion.div
+                  key={i}
+                  className="p-6 bg-white rounded-lg shadow"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.2, duration: 0.7 }}
+                  viewport={{ once: true }}
+                >
+                  <h3 className="text-xl font-semibold">{title}</h3>
+                  <p className="text-gray-600 mt-2">
+                    {[
+                      "Designed with precision & crafted with care, made for timeless wear.",
+                      "Ethically sourced materials that minimize environmental impact.",
+                      "Classic designs that never go out of style, blending tradition with modernity.",
+                    ][i]}
+                  </p>
+                </motion.div>
+              )
+            )}
           </div>
         </div>
       </section>
@@ -128,13 +135,24 @@ export default function About() {
       {/* Testimonial Carousel */}
       <section className="max-w-4xl mx-auto py-16 px-6 text-center relative">
         <h2 className="text-3xl font-semibold mb-8">What Our Customers Say</h2>
-        <div className="relative bg-white p-8 rounded-lg shadow-md transition-all duration-500 ease-in-out transform">
-          <p className="italic text-gray-700 text-lg">
-            &ldquo;{testimonials[currentIndex].quote}&rdquo;
-          </p>
-          <p className="font-bold mt-4 text-gray-900">
-            - {testimonials[currentIndex].name}
-          </p>
+        <div className="relative bg-white p-8 rounded-lg shadow-md h-48 flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={testimonials[currentIndex].id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.6 }}
+              className="absolute w-full"
+            >
+              <p className="italic text-gray-700 text-lg">
+                &ldquo;{testimonials[currentIndex].quote}&rdquo;
+              </p>
+              <p className="font-bold mt-4 text-gray-900">
+                - {testimonials[currentIndex].name}
+              </p>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Dots */}

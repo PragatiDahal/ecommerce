@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -6,6 +6,8 @@ import { Eye, EyeOff, Mail, User, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 // Simplified validation schema
 const loginSchema = z.object({
@@ -26,6 +28,11 @@ const LoginPage = () => {
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
+
+  useEffect(() => {
+    // Initialize AOS after the component mounts
+    AOS.init();
+  }, []);
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -58,7 +65,11 @@ const LoginPage = () => {
     <div className="min-h-screen flex items-center justify-center bg-[#D1D5DB]">
       <div className="bg-[#39445B] p-10 rounded-lg shadow-lg flex w-[800px]">
         {/* Left Side - Image */}
-        <div className="w-1/2 hidden md:block">
+        <div
+          className="w-1/2 hidden md:block"
+          data-aos="fade-right"
+          data-aos-duration="1000"
+        >
           <img
             src="/images/ab.jpg"
             alt="Login"
@@ -67,14 +78,18 @@ const LoginPage = () => {
         </div>
 
         {/* Right Side - Login Form */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center px-6">
+        <div
+          className="w-full md:w-1/2 flex flex-col justify-center px-6"
+          data-aos="fade-left"
+          data-aos-duration="1000"
+        >
           <h2 className="text-2xl font-bold text-white mb-5 text-center">
             Sign In
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Username */}
-            <div>
+            <div data-aos="fade-up" data-aos-duration="1000">
               <label className="text-sm font-medium text-white">
                 Name*
               </label>
@@ -92,7 +107,7 @@ const LoginPage = () => {
             </div>
 
             {/* Email */}
-            <div>
+            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
               <label className="text-sm font-medium text-white">Email*</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 text-gray-500" size={18} />
@@ -108,7 +123,7 @@ const LoginPage = () => {
             </div>
 
             {/* Password */}
-            <div>
+            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
               <label className="text-sm font-medium text-white">
                 Password*
               </label>
@@ -139,6 +154,9 @@ const LoginPage = () => {
               className={`w-full flex justify-center items-center py-2 rounded-md ${
                 loading ? "bg-gray-400" : "bg-[#EAB308] text-gray-700"
               }`}
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="300"
             >
               {loading ? (
                 <svg

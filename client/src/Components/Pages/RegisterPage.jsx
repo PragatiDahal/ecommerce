@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -6,6 +6,8 @@ import { Eye, EyeOff, User, Mail, Phone, Lock } from "lucide-react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css"; // Import AOS styles
 
 const registerSchema = z.object({
   username: z
@@ -46,6 +48,10 @@ const RegisterPage = () => {
     resolver: zodResolver(registerSchema),
   });
 
+  useEffect(() => {
+    AOS.init({ duration: 1000 }); // Initialize AOS animations
+  }, []);
+
   const onSubmit = async (data) => {
     setLoading(true);
 
@@ -77,8 +83,14 @@ const RegisterPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-200">
-      <div className="bg-[#39445B] p-10 rounded-lg shadow-lg flex w-full max-w-4xl">
-        <div className="w-1/2 hidden md:block">
+      <div
+        className="bg-[#39445B] p-10 rounded-lg shadow-lg flex w-full max-w-4xl"
+        data-aos="fade-up" // Adding fade-up animation for the outer container
+      >
+        <div
+          className="w-1/2 hidden md:block"
+          data-aos="fade-right" // Adding fade-right animation for the image section
+        >
           <img
             src="/images/about.jpg"
             alt="Registration"
@@ -86,14 +98,17 @@ const RegisterPage = () => {
           />
         </div>
 
-        <div className="w-full md:w-1/2 flex flex-col justify-center px-6">
+        <div
+          className="w-full md:w-1/2 flex flex-col justify-center px-6"
+          data-aos="fade-left" // Adding fade-left animation for the form section
+        >
           <h2 className="text-2xl font-bold text-white mb-5 text-center">
             Register Your Account
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="relative">
-              <User className="absolute left-3 top-3 text-white" size={18} />
+            <div className="relative" data-aos="fade-up">
+              <User className="absolute left-3 top-3  text-gray-500" size={18} />
               <input
                 type="text"
                 {...register("username")}
@@ -107,8 +122,8 @@ const RegisterPage = () => {
               )}
             </div>
 
-            <div className="relative">
-              <Mail className="absolute left-3 top-3 text-white" size={18} />
+            <div className="relative" data-aos="fade-up">
+              <Mail className="absolute left-3 top-3  text-gray-500" size={18} />
               <input
                 type="email"
                 {...register("email")}
@@ -120,8 +135,8 @@ const RegisterPage = () => {
               )}
             </div>
 
-            <div className="relative">
-              <Phone className="absolute left-3 top-3 text-white" size={18} />
+            <div className="relative" data-aos="fade-up">
+              <Phone className="absolute left-3 top-3  text-gray-500" size={18} />
               <input
                 type="text"
                 {...register("phone")}
@@ -133,8 +148,8 @@ const RegisterPage = () => {
               )}
             </div>
 
-            <div className="relative">
-              <Lock className="absolute left-3 top-3 text-white" size={18} />
+            <div className="relative" data-aos="fade-up">
+              <Lock className="absolute left-3 top-3  text-gray-500" size={18} />
               <input
                 type={showPassword ? "text" : "password"}
                 {...register("password")}
@@ -158,9 +173,9 @@ const RegisterPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full ${
-                loading ? "bg-gray-400" : "bg-yellow-500 hover:bg-yellow-600"
-              } text-white py-2 rounded-md transition`}
+              className={`w-full ${loading ? "bg-gray-400" : "bg-yellow-500 hover:bg-yellow-600"
+                } text-white py-2 rounded-md transition`}
+              data-aos="fade-up" // Adding fade-up animation for the submit button
             >
               {loading ? "Loading..." : "Sign Up"}
             </button>

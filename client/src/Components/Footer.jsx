@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white py-8 px-6">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        <p className="text-sm text-center md:text-left">Get connected with us in our social sites:</p>
+        <p className="text-sm text-center md:text-left">Get connected with us on our social sites:</p>
         <div className="flex space-x-4 mt-2 md:mt-0">
           <a href="#" className="text-gray-400 hover:text-white">
             <FaFacebookF size={20} />
@@ -18,12 +18,13 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      
+
       <div className="border-t border-gray-700 my-6"></div>
 
       <div className="container mx-auto grid md:grid-cols-3 gap-8 text-center md:text-left">
         <div>
           <h2 className="text-xl font-semibold">&STITCH</h2>
+          <h3 className="mt-2 text-gray-400 italic">"Fashion that fits your soul"</h3> {/* Add your slogan here */}
         </div>
         <div>
           <h3 className="text-lg font-medium">Quick Links</h3>
@@ -56,4 +57,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default Footer;

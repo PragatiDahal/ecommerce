@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Swal from "sweetalert2";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const formatPrice = (price) =>
   `Rs. ${Number(price).toLocaleString("en-IN", {
@@ -8,6 +10,13 @@ const formatPrice = (price) =>
   })}`;
 
 const CheckoutPage = ({ cart, setCart }) => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Animation duration
+      once: true, // Animation runs once
+    });
+  }, []);
+
   const cartItems = cart.map((item) => ({
     ...item,
     quantity: Number(item.quantity) || 1, // Ensure numeric quantity
@@ -80,11 +89,16 @@ const CheckoutPage = ({ cart, setCart }) => {
 
   return (
     <div className="p-6 bg-white min-h-screen flex flex-col">
-      <h1 className="text-3xl font-bold mb-6 text-center">Checkout</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center" data-aos="fade-up">
+        Checkout
+      </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-grow">
         {/* Form */}
-        <div className="border p-6 rounded shadow-md bg-gray-50">
+        <div
+          className="border p-6 rounded shadow-md bg-gray-50"
+          data-aos="fade-up"
+        >
           <h2 className="text-xl font-semibold mb-4 pt-12">Enter your information</h2>
           <form className="space-y-4">
             <div className="mt-8">
@@ -141,7 +155,11 @@ const CheckoutPage = ({ cart, setCart }) => {
         </div>
 
         {/* Cart */}
-        <div className="border p-6 rounded shadow-md bg-gray-50">
+        <div
+          className="border p-6 rounded shadow-md bg-gray-50"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
           <h2 className="text-xl font-semibold mb-4 pt-12">Review your cart</h2>
           {cartItems.length === 0 ? (
             <p>No items in cart</p>
@@ -150,6 +168,7 @@ const CheckoutPage = ({ cart, setCart }) => {
               <div
                 key={item._id || item.id}
                 className="flex items-center justify-between mb-4 border-b pb-2"
+                data-aos="fade-up"
               >
                 <div className="flex items-center gap-2">
                   <img
